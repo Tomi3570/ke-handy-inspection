@@ -229,14 +229,12 @@ body {
 .screen-footer {
   margin-top: auto;
   padding: 16px 24px;
-  /* Ensure footer clears browser chrome on mobile */
-  padding-bottom: max(calc(var(--safe-bottom) + 12px), 28px);
+  padding-bottom: max(calc(env(safe-area-inset-bottom, 20px) + 12px), 28px);
   display: flex;
   gap: 12px;
   align-items: center;
   flex-shrink: 0;
-  position: sticky;
-  bottom: 0;
+  background: inherit;
 }
 
 .screen-footer.footer-stacked {
@@ -671,6 +669,7 @@ body {
 
 .inspection-items {
   padding: 0 24px;
+  padding-bottom: 120px; /* room for sticky-like footer on scroll screens */
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -1063,6 +1062,7 @@ body {
 
 .results-list {
   padding: 0 24px;
+  padding-bottom: 140px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -1266,7 +1266,7 @@ body {
 }
 
 .report-output {
-  margin: 16px 24px 0;
+  margin: 16px 24px 140px; /* bottom margin for footer */
   padding: 14px 16px;
   background: #fff;
   border: 1px solid var(--border-light);
@@ -1322,7 +1322,9 @@ body {
    ============================================ */
 .screen-draw {
   background: #000;
-  display: flex;
+  /* Do NOT set display:flex here — let .screen.active handle it.
+     Setting display:flex here overrides .screen { display:none }
+     causing the drawing scan screen to always be visible (black on iOS). */
   flex-direction: column;
 }
 
@@ -1663,4 +1665,3 @@ body {
   border-radius: 50%;
   background: rgba(255,255,255,0.85);
 }
-
